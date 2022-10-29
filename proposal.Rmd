@@ -2,5 +2,8 @@
 
 ## Research topic
 
+In this project, we analyze the school safety data. The data show the number of crimes that happened in public schools. The data is collected and updated by NYPD, then published by the Department of Education. Each observation unit in the data frame in a building. The reason is well-explained by the data source, NYC Open Data. It would be interesting to investigate whether there is a correlation between school location and crime rate. Other than the location of each school. The number of each different type of crime is also collected. Besides those, the data also contains the number of registered students and the building population. It would be interesting to look at those data to find any pattern across multiple variables. 
+
 ## Data availability
 
+The data is collected by NYPD, published by DOE, and owned by NYC Open Data. The Data is in CSV format. The data is collected from 2010 to 2016. The Data is last updated on September 16, 2017, according to the data source.
