@@ -7,3 +7,16 @@ In this project, we analyze the school safety data. The data show the number of 
 ## Data availability
 
 The data is collected by NYPD, published by DOE, and owned by NYC Open Data. The Data is in CSV format. The data is collected from 2010 to 2016. The Data is last updated on September 16, 2017, according to the data source.
+
+Convenience
+Reason to choose this data
+What we know about this data
+Why do we choose this data
+Potential for multivariable analysis
+Update the frequency of data
+How the data is collected
+Reason to choose this data
+What we know about this data
+Why do we choose this data
+Potential for multivariable analysis
+
