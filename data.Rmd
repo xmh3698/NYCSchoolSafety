@@ -1,8 +1,40 @@
 # Data 
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(tidyverse)
+library(dplyr)
+library(redav)
+library(knitr)
+```
 ## Sources
 
 ## Cleaning / transformation
+There are only 36 rows have missing value, most of they miss BIN or BBL, which are not very important variable. There are 2 rows missing district code, which is an important variable in our analysis. After some investigation, I found those two are duplicates, thus I feel safe to drop those two.
+```{r}
+# get the data
+NYC_school <- read.csv(file = 'data/raw/2010_-_2016_School_Safety_Report.csv')
+
+# NYC_school %>%
+#   filter(grepl("Norwood Heights",Location.Name))
+
+school_clean <- NYC_school %>%
+  filter(Major.N != "N/A" & RangeA != "N/A" & RangeA != "#N/A" & !is.na(Geographical.District.Code))
+school_clean$RangeA[school_clean$RangeA == "251- 500"] <- "251-500"
+school_clean$RangeA <- factor(school_clean$RangeA, levels = c("1-250","251-500","501-750","751-1000","1001-1250","1251-1500","1501-1750","1751-2000",
+                                                              "2001-2500","2501-3000","3001-4000","4000+"))
+count(school_clean, RangeA) %>%
+  print()
+
+  
+```
+
+
 
 ## Missing value analysis
 
+We can recover those missing value as long as those schools still exist.
+
+```{r}
+colSums(is.na(NYC_school)) %>%
+  sort(decreasing = TRUE)
+```

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Data | NYC School Safey</title>
   <meta name="description" content="Chapter 3 Data | NYC School Safey" />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Data | NYC School Safey" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Tseng-Han Yu, Xiangming Huang" />
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2022-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -113,9 +113,58 @@
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are only 36 rows have missing value, most of they miss BIN or BBL, which are not very important variable. There are 2 rows missing district code, which is an important variable in our analysis. After some investigation, I found those two are duplicates, thus I feel safe to drop those two.</p>
+<pre><code>##       RangeA   n
+## 1      1-250 229
+## 2    251-500 728
+## 3    501-750 981
+## 4   751-1000 664
+## 5  1001-1250 343
+## 6  1251-1500 267
+## 7  1501-1750 104
+## 8  1751-2000  61
+## 9  2001-2500  77
+## 10 2501-3000  34
+## 11 3001-4000  45
+## 12     4000+  13</code></pre>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can recover those missing value as long as those schools still exist.</p>
+<pre><code>##                        BIN                        BBL 
+##                         36                         36 
+##                   Postcode                   Latitude 
+##                         24                         24 
+##                  Longitude            Community.Board 
+##                         24                         24 
+##           Council.District               Census.Tract 
+##                         24                         24 
+## Geographical.District.Code                School.Year 
+##                          6                          0 
+##              Building.Code                        DBN 
+##                          0                          0 
+##              Location.Name              Location.Code 
+##                          0                          0 
+##                    Address                    Borough 
+##                          0                          0 
+##                   Register              Building.Name 
+##                          0                          0 
+##                 X..Schools        Schools.in.Building 
+##                          0                          0 
+##                    Major.N                      Oth.N 
+##                          0                          0 
+##                   NoCrim.N                     Prop.N 
+##                          0                          0 
+##                      Vio.N                   ENGroupA 
+##                          0                          0 
+##                     RangeA               AvgOfMajor.N 
+##                          0                          0 
+##                 AvgOfOth.N              AvgOfNoCrim.N 
+##                          0                          0 
+##                AvgOfProp.N                 AvgOfVio.N 
+##                          0                          0 
+##               Borough.Name                        NTA 
+##                          0                          0</code></pre>
 
 </div>
 </div>
