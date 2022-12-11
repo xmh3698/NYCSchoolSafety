@@ -23,7 +23,7 @@
 <meta name="author" content="Tseng-Han Yu, Xiangming Huang" />
 
 
-<meta name="date" content="2022-11-30" />
+<meta name="date" content="2022-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -108,6 +108,25 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ol style="list-style-type: decimal">
+<li>matrix dot plots for 5 different type of crimes</li>
+</ol>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>2.Parallel coordinate plots</p>
+<p>useful at finding: outlier; cluster; inverse correlation; positive correlation</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+Clearly, we don’t see many outliers from School year 2015-2016. Does this means that 2015-2016 is a safer school year?</p>
+<pre><code>## # A tibble: 3 × 6
+##   School.Year total_major total_oth total_nocrim total_prop total_vio
+##   &lt;chr&gt;             &lt;int&gt;     &lt;int&gt;        &lt;int&gt;      &lt;int&gt;     &lt;int&gt;
+## 1 2013-14             649      2461         3759       1585      1067
+## 2 2014-15             606      2264         3941       1554      1048
+## 3 2015-16             521      2196         4053       1332      1058</code></pre>
+<p>Change to time series table
+Yes, there are less major crime property crime, and other crime committed in year 2015-2016. Some over time, schools actually got to be safer, or just some school?</p>
+<ol start="3" style="list-style-type: decimal">
+<li>stack bar chart for type of crime in each borough</li>
+</ol>
 
 </div>
             </section>
