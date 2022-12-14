@@ -25,7 +25,9 @@ school_clean$RangeA <- factor(school_clean$RangeA, levels = c("1-250","251-500",
 count(school_clean, RangeA) %>%
   print()
 
-  
+write.csv(school_clean, "cleandata.csv")
+cleandata <- read.csv(file = 'cleandata.csv')
+
 ```
 
 

@@ -7,5 +7,10 @@ sources
 cleaning-transformation
 missing-value-analysis
 results
+graph-6
+graph-7
+graph-8
+graph-9
+graph-10
 interactive-component
 conclusion
