@@ -86,12 +86,17 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#scatterplot-for-total-crimes-v.s.-total-number-of-students"><i class="fa fa-check"></i><b>4.1</b> 1. Scatterplot for total crimes v.s. total number of students</a></li>
-<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#parallel-coordinate-plot-for-school-districts"><i class="fa fa-check"></i><b>4.2</b> 2. Parallel coordinate plot for school districts</a></li>
-<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#treemap-for-total-registered-students-and-the-number-of-school-in-each-districts"><i class="fa fa-check"></i><b>4.3</b> 3. Treemap for total registered students and the number of school in each districts</a></li>
-<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#time-series-of-total-crime-in-new-york-city"><i class="fa fa-check"></i><b>4.4</b> 4. Time Series of total crime in New York City</a></li>
-<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#matrix-dot-plots-for-5-different-type-of-crimes"><i class="fa fa-check"></i><b>4.5</b> 9. matrix dot plots for 5 different type of crimes</a></li>
-<li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#scatterplot-with-total-school-and-total-crime"><i class="fa fa-check"></i><b>4.6</b> 11. Scatterplot with total school and total crime</a></li>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#scatterplot-for-total-crimes-v.s.-total-number-of-students"><i class="fa fa-check"></i><b>4.1</b> Scatterplot for total crimes v.s. total number of students</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#parallel-coordinate-plot-for-school-districts"><i class="fa fa-check"></i><b>4.2</b> Parallel coordinate plot for school districts</a></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#treemap-for-total-registered-students-and-the-number-of-school-in-each-districts"><i class="fa fa-check"></i><b>4.3</b> Treemap for total registered students and the number of school in each districts</a></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#time-series-of-total-crime-in-new-york-city"><i class="fa fa-check"></i><b>4.4</b> Time Series of total crime in New York City</a></li>
+<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#time-series-plot-regarding-number-of-crimes-in-each-category"><i class="fa fa-check"></i><b>4.5</b> Time series plot regarding number of crimes in each category</a></li>
+<li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#bar-chart-regarding-number-of-schools-at-each-location"><i class="fa fa-check"></i><b>4.6</b> Bar chart regarding number of schools at each location</a></li>
+<li class="chapter" data-level="4.7" data-path="results.html"><a href="results.html#mosaic-plot-school-yearboroughsnumber-of-crimes-in-each-category"><i class="fa fa-check"></i><b>4.7</b> Mosaic plot (school year/boroughs/number of crimes in each category)</a></li>
+<li class="chapter" data-level="4.8" data-path="results.html"><a href="results.html#cleveland-dot-plot"><i class="fa fa-check"></i><b>4.8</b> Cleveland dot plot</a></li>
+<li class="chapter" data-level="4.9" data-path="results.html"><a href="results.html#scatter-plot-matrix-for-5-different-type-of-crimes"><i class="fa fa-check"></i><b>4.9</b> Scatter plot matrix for 5 different type of crimes</a></li>
+<li class="chapter" data-level="4.10" data-path="results.html"><a href="results.html#principle-components-analysis-pca"><i class="fa fa-check"></i><b>4.10</b> Principle components analysis (PCA)</a></li>
+<li class="chapter" data-level="4.11" data-path="results.html"><a href="results.html#scatterplot-with-total-school-and-total-crime"><i class="fa fa-check"></i><b>4.11</b> Scatterplot with total school and total crime</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
@@ -118,29 +123,63 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The data is collected by the New York City Police Department (NYPD) and is published by the New York City Department of Education (DOE). The NYPD is responsible for maintaining the crime data for incidents that occurred among public schools in New York City, which would then be provided to the DOE for compilation, indicating that maintenance of the data is a collaborative work by the NYPD and the DOE. We did come across a few datasets that sparked our interest on NYC Open Data. One of them is the school safety report of New York City public schools from 2010 to 2016, and the other one is the school safety report of New York City public schools from 2015 to 2016. Both datasets include identical columns except one includes data over years instead of just one. As we are also interested in the shift in the number of crimes over time, we decided to go with the one that is from 2010 to 2016.</p>
+<p>There are 34 variables with over 6000 rows in the data. Some example variables would be the number of crimes in different categories, including major, other, non-criminal, property, and violent, boroughs where the location is situated, number of registered students at each location, and school year, indicating that the data would be sufficient for us to analyze and extract answers and information regarding school safety issues in New York City. At first glance, we realized there are a lot of NAs in variables like Major.N, which is the number of major crimes, and RangeA, which is the range the building population falls in. After diving deeper into the data and doing more research, we found out that the data presented is aggregated by building location rather than by school, which would explain the NAs only appear when the school is located at a location that also includes other schools. We also noticed that whenever RangeA has NAs, rest of values in that row are also missing, indicating that the school might not exist anymore. Furthermore, we discovered that there are some schools indicated to be in “District 0,” which does not exist. We then looked them up and found out that those schools were either shut down or repurposed. Another significant issue with the data is that while the data claims to include data from 2010 to 2016, it actually only includes data from 2013-2016. Nevertheless, we believe that it would still be enough for us to conduct the analysis and extract useful information.</p>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are only 36 rows have missing value, most of they miss BIN or BBL, which are not very important variable. There are 2 rows missing district code, which is an important variable in our analysis. After some investigation, I found those two are duplicates, thus I feel safe to drop those two.
-Borough O, district 0.</p>
-<pre><code>##       RangeA   n
-## 1      1-250 227
-## 2    251-500 727
-## 3    501-750 979
-## 4   751-1000 664
-## 5  1001-1250 343
-## 6  1251-1500 267
-## 7  1501-1750 104
-## 8  1751-2000  61
-## 9  2001-2500  77
-## 10 2501-3000  34
-## 11 3001-4000  45
-## 12     4000+  13</code></pre>
+<p>As mentioned, the data presented is aggregated by building location rather than by school, indicating that we could just focus on the rows that include overall information for the specific location, which is why we decided to drop the rows that belong to a building location but do not contain useful information. We believe our analysis could be done more efficiently by doing so. We also discovered that rows with NAs in column RangeA and are located in “District 0” also do not contain meaningful information. Thus, we decided to filter out those rows as well. As there are over 30 columns in our data, we thought it would be easier and more efficient to conduct the exploratory data analysis if we just keep the columns that we are going to use, and thus, we have our processed data that includes 10 variables: School.Year, which is the school year the data was recorded, Borough, the NYC borough the location is situated in, Geographical.District.Code, which is the school’s geographical district as defined by the NYC DOE, Register, which is the number of registered students, X..Schools, which is the number of schools at the specific location, Major.N, which is the number of major crimes, Oth.N, which is the number of other crimes, NoCrim.N, which is the number of non-criminal crimes, Prop.N, which is the number of property crimes, and Vio.N, which is the number of property crimes, with over 3000 rows, which we believe would still be sufficient for use to conduct the analysis and extract meaning information.</p>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We can recover those missing value as long as those schools still exist.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre><code>##                        BIN                        BBL 
+##                         36                         36 
+##                   Postcode                   Latitude 
+##                         24                         24 
+##                  Longitude            Community.Board 
+##                         24                         24 
+##           Council.District               Census.Tract 
+##                         24                         24 
+## Geographical.District.Code                School.Year 
+##                          6                          0 
+##              Building.Code                        DBN 
+##                          0                          0 
+##              Location.Name              Location.Code 
+##                          0                          0 
+##                    Address                    Borough 
+##                          0                          0 
+##                   Register              Building.Name 
+##                          0                          0 
+##                 X..Schools        Schools.in.Building 
+##                          0                          0 
+##                    Major.N                      Oth.N 
+##                          0                          0 
+##                   NoCrim.N                     Prop.N 
+##                          0                          0 
+##                      Vio.N                   ENGroupA 
+##                          0                          0 
+##                     RangeA               AvgOfMajor.N 
+##                          0                          0 
+##                 AvgOfOth.N              AvgOfNoCrim.N 
+##                          0                          0 
+##                AvgOfProp.N                 AvgOfVio.N 
+##                          0                          0 
+##               Borough.Name                        NTA 
+##                          0                          0</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p>We first conduct missing value analysis on the raw data. From the above, we can observe that most of cthe olumns that include missing values are the columns that we are not going to use for our analysis, such as BIN or BBl. By looking at the graph, we can notice that in most cases, the rows are complete cases, meaning that there are no missing values in most of the rows. While there are indeed some missing value patterns in the data, we can learn from the chart on the right that those patterns do not really exist in many rows, indicating that they should not be that big of a problem when we conduct the exploratory data analysis.</p>
+<pre><code>##                School.Year                    Borough 
+##                          0                          0 
+## Geographical.District.Code                   Register 
+##                          0                          0 
+##                 X..Schools                    Major.N 
+##                          0                          0 
+##                      Oth.N                   NoCrim.N 
+##                          0                          0 
+##                     Prop.N                      Vio.N 
+##                          0                          0</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p>We then conduct the missing data analysis again after data cleaning and transformation. From the above, we can notice that all of the rows are complete cases, meaning that all of the rows in our processed data do not contain any missing values, which indicates that missing value would not be an issue when we conduct the analysis and we are safe to proceed.</p>
 
 </div>
 </div>
