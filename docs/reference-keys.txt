@@ -7,5 +7,11 @@ sources
 cleaning-transformation
 missing-value-analysis
 results
+scatterplot-for-total-crimes-v.s.-total-number-of-students
+parallel-coordinate-plot-for-school-districts
+treemap-for-total-registered-students-and-the-number-of-school-in-each-districts
+time-series-of-total-crime-in-new-york-city
+matrix-dot-plots-for-5-different-type-of-crimes
+scatterplot-with-total-school-and-total-crime
 interactive-component
 conclusion

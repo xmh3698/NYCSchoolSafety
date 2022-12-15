@@ -23,7 +23,7 @@
 <meta name="author" content="Tseng-Han Yu, Xiangming Huang" />
 
 
-<meta name="date" content="2022-12-11" />
+<meta name="date" content="2022-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -84,7 +84,15 @@
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#scatterplot-for-total-crimes-v.s.-total-number-of-students"><i class="fa fa-check"></i><b>4.1</b> 1. Scatterplot for total crimes v.s. total number of students</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#parallel-coordinate-plot-for-school-districts"><i class="fa fa-check"></i><b>4.2</b> 2. Parallel coordinate plot for school districts</a></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#treemap-for-total-registered-students-and-the-number-of-school-in-each-districts"><i class="fa fa-check"></i><b>4.3</b> 3. Treemap for total registered students and the number of school in each districts</a></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#time-series-of-total-crime-in-new-york-city"><i class="fa fa-check"></i><b>4.4</b> 4. Time Series of total crime in New York City</a></li>
+<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#matrix-dot-plots-for-5-different-type-of-crimes"><i class="fa fa-check"></i><b>4.5</b> 9. matrix dot plots for 5 different type of crimes</a></li>
+<li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#scatterplot-with-total-school-and-total-crime"><i class="fa fa-check"></i><b>4.6</b> 11. Scatterplot with total school and total crime</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -113,11 +121,12 @@
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are only 36 rows have missing value, most of they miss BIN or BBL, which are not very important variable. There are 2 rows missing district code, which is an important variable in our analysis. After some investigation, I found those two are duplicates, thus I feel safe to drop those two.</p>
+<p>There are only 36 rows have missing value, most of they miss BIN or BBL, which are not very important variable. There are 2 rows missing district code, which is an important variable in our analysis. After some investigation, I found those two are duplicates, thus I feel safe to drop those two.
+Borough O, district 0.</p>
 <pre><code>##       RangeA   n
-## 1      1-250 229
-## 2    251-500 728
-## 3    501-750 981
+## 1      1-250 227
+## 2    251-500 727
+## 3    501-750 979
 ## 4   751-1000 664
 ## 5  1001-1250 343
 ## 6  1251-1500 267
@@ -131,40 +140,7 @@
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can recover those missing value as long as those schools still exist.</p>
-<pre><code>##                        BIN                        BBL 
-##                         36                         36 
-##                   Postcode                   Latitude 
-##                         24                         24 
-##                  Longitude            Community.Board 
-##                         24                         24 
-##           Council.District               Census.Tract 
-##                         24                         24 
-## Geographical.District.Code                School.Year 
-##                          6                          0 
-##              Building.Code                        DBN 
-##                          0                          0 
-##              Location.Name              Location.Code 
-##                          0                          0 
-##                    Address                    Borough 
-##                          0                          0 
-##                   Register              Building.Name 
-##                          0                          0 
-##                 X..Schools        Schools.in.Building 
-##                          0                          0 
-##                    Major.N                      Oth.N 
-##                          0                          0 
-##                   NoCrim.N                     Prop.N 
-##                          0                          0 
-##                      Vio.N                   ENGroupA 
-##                          0                          0 
-##                     RangeA               AvgOfMajor.N 
-##                          0                          0 
-##                 AvgOfOth.N              AvgOfNoCrim.N 
-##                          0                          0 
-##                AvgOfProp.N                 AvgOfVio.N 
-##                          0                          0 
-##               Borough.Name                        NTA 
-##                          0                          0</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 
 </div>
 </div>
