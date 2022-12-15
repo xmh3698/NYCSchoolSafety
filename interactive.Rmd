@@ -112,5 +112,6 @@
 </script>
 
 What is the change in overall school safety in NYC over years? To answer this question, we have made to time series plot to obverse the total number of each different type of school crime for 3 consecutive school years. We observed a mixed message, as some are increasing, some are decreasing, and others remain unchanged. We also the total number of each different type of school crime varies. To better understand those changes and have a sense of overall school safety. We made a bar chart by D3 to better visualize our result.
-By clicking buttons representing different school years, we can observe the change in the total number of different types of crime. By observing the magnitude of change in each bar chart, we have a vague feeling that school safety in NYC is proving over time, which is very hard to tell by looking at a static time series plot.
+By clicking buttons representing different school years, we can observe the change in the total number of different types of crime. By observing the magnitude of change in each bar chart, we have a vague feeling of how school safety in NYC change over time, which is very hard to tell by looking at a static time series plot.
+
 

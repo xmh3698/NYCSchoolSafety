@@ -51,8 +51,10 @@ district_crime <- school_clean %>%
   
 #Let's first see how school_crime looks like by district
 ggparcoord(district_crime, columns=2:7, groupColumn=1, alpha=1, scale='uniminmax',
-           title = "Modified parallel coordinate plot for NYC school district crime")
+           title = "Modified parallel coordinate plot for NYC school district crime") +
+  theme(axis.text.x  = element_text(angle=45, vjust=1, hjust=1, size=8), axis.text.y = element_text(size=5))
 ```
+
 A parallel coordinate plot is useful for finding outliers and clusters. In this case, we are interested in finding which school district has a large number of overall crimes. Five different types of crime are calculated for each district by taking the sum by schools over three years.
 We found two outliers, district 2 from Manhattan and district 31 from Staten Island. Then, we see several districts from the Bronx have school crime well above other districts. We also observed a cluster of districts from the Queen has low overall crimes. Based on this plot, we can assume the Bronx has the highest overall school crimes, while the Queen has the lowest overall crime.
 
