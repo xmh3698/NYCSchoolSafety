@@ -7,3 +7,5 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+School safety is always an important topic, but it has raised even more public attention due to tragedies that happened over the past few years. Thus, we thought it could be beneficial if we can extract useful information from data regarding school safety and crime issues. As we are located in New York, we decided to focus on New York City public schools. Some questions that we are interested in studying would be whether the number of crimes in each category has changed overtime, which boroughs or geographical districts have higher number of crimes, and whether higher number of registered students suggests higher number of crimes. By conducting exploratory data analysis and finding answers to these questions, we are hoping to provide the audience useful information and help them to have a better understanding in the topic of school safety with focus on New York City public schools.
+

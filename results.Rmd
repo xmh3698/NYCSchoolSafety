@@ -8,12 +8,18 @@ library(treemap)
 library(ggplot2)
 library(dplyr)
 library(car)
+options(dplyr.summarise.inform = FALSE)
+library(ggridges)
+library(forcats)
+library(gridExtra)
+library(tidyr)
 
 #loading data 
 school_clean <- read.csv("data/clean/school_clean.csv")
+school_clean <- select(school_clean,-1)
 ```
 
-## 1. Scatterplot for total crimes v.s. total number of students
+## Scatterplot for total crimes v.s. total number of students
 ```{r}
 #Preprocessing
 register_crime <- school_clean %>%
@@ -35,7 +41,7 @@ scatterplot(crime ~ total_register, data=register_crime, main = title_1, col = "
 It is natural to ask if the total number of students positively correlates to the total number of school crimes for each geographical district. To answer this question, we plot the scatterplot of the total number of students and the total number of school crimes for each district in each school year. To find the total number of students, we take the sum of schools from the same district and school year. The total number of crimes in each school is the sum of five different types of crimes provided in the data. The total number of crimes is the sum of the total number of crimes in each school from the same district and school year.
 The correlation between the two variables is calculated and displayed in the graph. Contradicting our intuition, the correlation is very weak. The plot shows that the larger number of registered students in the district is not strongly correlated with the total number of school crimes in each district. The scatterplot explains the weak correlation. When the total number of registered students is high, some districts have a high number of school crimes, while others don’t.
 
-## 2. Parallel coordinate plot for school districts
+## Parallel coordinate plot for school districts
 
 ```{r}
 district_crime <- school_clean %>%
@@ -50,7 +56,7 @@ ggparcoord(district_crime, columns=2:7, groupColumn=1, alpha=1, scale='uniminmax
 A parallel coordinate plot is useful for finding outliers and clusters. In this case, we are interested in finding which school district has a large number of overall crimes. Five different types of crime are calculated for each district by taking the sum by schools over three years.
 We found two outliers, district 2 from Manhattan and district 31 from Staten Island. Then, we see several districts from the Bronx have school crime well above other districts. We also observed a cluster of districts from the Queen has low overall crimes. Based on this plot, we can assume the Bronx has the highest overall school crimes, while the Queen has the lowest overall crime.
 
-## 3. Treemap for total registered students and the number of school in each districts
+## Treemap for total registered students and the number of school in each districts
 Which geographical district has the largerest number of students, which geographical district has the smallest number of students? What is the distribution of registered stduent in NYC? To answer those questions, we can plot a treemap that includes the total population of each geographical district.
 
 ```{r}
@@ -77,7 +83,7 @@ treemap(district_population,
 What is the distribution of schools and students over all districts and boroughs? We used a treemap to ask this question. Each row in our dataset is a building, one building can have multiple schools. This is why there is a column for the number of schools for each row. To find the number of students and number of schools for each district, we simply take the sum by groups.
 We can see that Brooklyn and Queens have the largest number of students, while Bronx and Manhattan have a similar number of students. The Number of schools is more evenly distributed in the Bronx than in Manhattan. The number of schools is more evenly distributed in Queens than in Brooklyn.
 
-## 4. Time Series of total crime in New York City
+## Time Series of total crime in New York City
 ```{r}
 #preprocessing
 total_crime <- school_clean %>%
@@ -97,8 +103,78 @@ ggplot(data = total_crime) +
 What is the trend of each type of crime over time? To answer this question, we plot a time series plot for the total number of each type of school crime in NYC over years. The process is straightforward. We take the sum of each type of school crime group by year.
 We observe a slight increase in the total number of non-criminal crimes over time. We observe a slight decrease in the total number of property crimes, major crimes, and other crimes over time. We observe no change in the total number of violent crimes. However, those changes are very small, we might just say the total number of each type of school crime in NYC is about the same each year.
 
+## Time series plot regarding number of crimes in each category
+```{r}
+cleandata_5 = school_clean[c(1,2,6:10)]
+cleandata_5 = cleandata_5 %>% group_by(School.Year, Borough) %>%dplyr::summarise(Major.N=sum(Major.N),Oth.N=sum(Oth.N),
+  NoCrim.N=sum(NoCrim.N), Prop.N=sum(Prop.N), Vio.N=sum(Vio.N)) %>% ungroup()
+cleandata_5 = cleandata_5 %>% pivot_longer(cols =!c('School.Year','Borough'), names_to = "crime", values_to="count")
+ggplot(cleandata_5, aes(School.Year, count, color= crime, group=crime)) +
+  geom_point() +
+  geom_line(stat='identity') +
+  facet_wrap(~Borough) +
+  labs(y="Number of crime in each category", x="School Year") +
+  ggtitle("Time Series Plot")
+```
 
-## 9. matrix dot plots for 5 different type of crimes
+We would also like to see how number of crimes in each category changes overtime. We then decided to make time series plot to observe the change in number of crimes in each category. We used different color for different categories of crimes for easier interpretation with faceting on boroughs. The reason why we decided to faceting on boroughs instead of geographical districts is because there are over 30 districts while there are only 5 boroughs, which would make the graph less crowded. From the graph, we can see that for most of the boroughs the top category of crime is non-criminal crime, followed by other crime, property crime, violent crime, and major crime, in that order respectively. We can also observe that Brooklyn has higher number of crimes in most categories comparing to other boroughs followed by Bronx. The number of crimes did not change much over the years for most categories of crimes. For number of non-criminal crimes in Brooklyn and Bronx, it does seem like there might be an upward trend over the years. 
+
+## Bar chart regarding number of schools at each location
+```{r}
+cleandata_6 = school_clean %>%
+  group_by(School.Year,Borough, X..Schools) %>%
+  dplyr::summarise(n = n()) 
+g1 = ggplot(filter(cleandata_6,School.Year=='2013-14'), aes(x=X..Schools,y=n)) +
+  geom_bar(stat = "identity") +
+  ggtitle("2013-14") +
+  facet_grid(~Borough) +
+  ylab("Frequency") +
+  xlab("Number of schools at each location") +
+  scale_x_continuous(breaks = c(2, 4, 6, 8, 10)) +
+  theme(panel.grid.major.x = element_blank())
+g2 = ggplot(filter(cleandata_6,School.Year=='2014-15'), aes(x=X..Schools,y=n)) +
+  geom_bar(stat = "identity") +
+  ggtitle("2014-15") +
+  facet_grid(~Borough) +
+  ylab("Frequency") +
+  xlab("Number of schools at each location") +
+  scale_x_continuous(breaks = c(2, 4, 6, 8, 10)) +
+  theme(panel.grid.major.x = element_blank())
+g3 = ggplot(filter(cleandata_6,School.Year=='2015-16'), aes(x=X..Schools,y=n)) +
+  geom_bar(stat = "identity") +
+  ggtitle("2015-16") +
+  facet_grid(~Borough) +
+  ylab("Frequency") +
+  xlab("Number of schools at each location") +
+  scale_x_continuous(breaks = c(2, 4, 6, 8, 10)) +
+  theme(panel.grid.major.x = element_blank()) 
+grid.arrange(g1, g2, g3, nrow=3)
+```
+
+As there might be different numbers of schools in each location, we thought we could also examine the underlying structure of schools among different boroughs by making bar charts to see the frequency count of the number of schools in each location over the years. As expected, we can observe that for all the boroughs, most of the locations only include one school, but it is also interesting to see that there are 10 schools at some of the locations. We can also see that the frequency count does not really change over the years, meaning that the existing locations did not have much changes and there might be limited new locations.
+
+## Mosaic plot (school year/boroughs/number of crimes in each category)
+```{r}
+cleandata_7 = uncount(cleandata_5, count)
+vcd::mosaic(crime ~ School.Year + Borough, cleandata_7, direction = c("v", "v", "h")) 
+```
+
+To understand the association between categories of crimes and boroughs over the years, we made a mosaic plot. The result is similar to what we expected based on the result from the previous plots. We can observe that for almost all the boroughs the top category of crime is non-criminal crime, followed by other crime, property crime, violent crime, and major crime, in that order respectively. From the graph, now we can also observe the differences in total number of crimes among the boroughs by looking at the width of each bar with Brooklyn and Bronx having the highest total number of crimes. Lastly, we can notice the proportions regarding different categories of crimes and total number of crimes among the boroughs did not really change much over the years. 
+
+## Cleveland dot plot
+```{r}
+cleandata_8 = school_clean[c(3,6:10)]
+cleandata_8 = cleandata_8 %>% pivot_longer(cols =!Geographical.District.Code, names_to = "crime",values_to ="count")
+cleandata_8 = cleandata_8 %>% group_by(Geographical.District.Code, crime) %>% dplyr::summarise(count_sum = sum(count))
+ggplot(cleandata_8, aes(x = count_sum, y = reorder(Geographical.District.Code,count_sum), color = crime)) +
+  geom_point(size=1) +
+  theme(axis.text.y = element_text(size=5)) +
+  labs(y="Geographical District Code", x="Number of crimes in each category") 
+```
+
+To have a better understanding of number of crimes in each category at different geographical districts, we decided to make a Cleveland dot plot as the number of crimes is discrete data. We separated different categories of crimes by color for easier interpretation. As you can see from the graph, for most of the districts, non-criminal crime is the dominant category, followed by other crime, property crime, violent crime, and major crime, in that order respectively. From the graph, we can also learn about which districts have higher number of crimes regarding different categories. We can see that District 2, 31, and 10 have much higher number of crimes in most categories than rest of the districts. 
+
+## Scatter plot matrix for 5 different type of crimes
 
 ```{r}
 school_crime <- school_clean %>%
@@ -114,10 +190,31 @@ pairs.panels(school_crime[,3:7],
              )
 ```
 
-At this point, it is good to ask about the level of a school district, are each type of school crime correlated. To answer this question, we can use matrix dot plots. We summarise the sum of each type of crime grouping by districts and school year.
+At this point, it is good to ask about the level of a school district, are each type of school crime correlated. To answer this question, we can use matrix scatter plots. We summaries the sum of each type of crime grouping by districts and school year.
 We observe a strong correlation between any pair of different types of school crime. All the correlations are positive, thus a district with a high number of one type of crime is also likely to have a high number of other types of school crimes.
 
-## 11. Scatterplot with total school and total crime
+## Principle components analysis (PCA)
+```{r}
+cleandata_10 = school_clean[c(1,3:5,6:10)]
+cleandata_10 = filter(cleandata_10, School.Year=='2013-14') 
+cleandata_10$Register = gsub(",", "", cleandata_10$Register) 
+cleandata_10$Register = as.numeric(cleandata_10$Register)
+cleandata_10 = cleandata_10 %>% group_by(Geographical.District.Code) %>%dplyr::summarise(Major.N=sum(Major.N),Oth.N=sum(Oth.N), NoCrim.N=sum(NoCrim.N), Prop.N=sum(Prop.N), Vio.N=sum(Vio.N),
+X..Schools=sum(X..Schools), Register=sum(Register)) %>% ungroup()
+cleandata_10 = filter(cleandata_10,Geographical.District.Code!=0)
+school.pca <- prcomp(cleandata_10[,-1], center = TRUE,scale. = TRUE)
+summary(school.pca)
+mat_round <- function(matrix, n = 3) apply(matrix, 2, function(x) round(x, n))
+mat_round(school.pca$rotation)
+```
+
+```{r}
+draw_biplot(cleandata_10[,-1])
+```
+
+To understand how the variables contribute to the total variance and how they are related to each other, we decided to conduct principle components analysis (PCA). As we observed that the number of schools and crimes did not really change much over the years, we decided to conduct PCA only for the year of 2013-14 for simplicity. We picked a few important variables to conduct the analysis, including total number of crimes for each crime category, total number of schools, and total number of registered students for each geographical districts. From the PCA table, we can observe that the first two principal components capture around 88% of the total variance, which is relatively high. We also display the specific linear combination of variables for each principal component for additional information. We then drew a biplot for further interpretation. From the graph, we can see that total number of students is surprisingly uncorrelated with most of the other variables, which contradicts with what we expected: higher number of students would also indicate higher number of crimes. We can also observe that total number of schools, non-criminal crimes, property crimes, and other crimes are highly positively correlated, while total number of violent crimes and major crimes are highly positively correlated. 
+
+## Scatterplot with total school and total crime
 ```{r}
 #Preprocessing
 register_crime <- school_clean %>%
