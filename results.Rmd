@@ -88,7 +88,7 @@ total_crime <- school_clean %>%
 
 #line plot
 ggplot(data = total_crime) +
-  geom_line(aes(School.Year, total, color = crime, group = crime),size = 1.2) +
+  geom_line(aes(School.Year, total, color = crime, group = crime), linewidth = 1.2) +
   theme_grey(16) +
   theme(legend.title = element_blank())
   

@@ -1,3 +1,112 @@
 # Interactive component
 
+<script src="https://d3js.org/d3.v7.js"></script>
 
+<p id="color" style="background-color: silver; color: white;">Please select school year:</p>
+<input type="radio" id="html" name="fav_color" value="bardata1"> 2013-2014
+<input type="radio" id="css" name="fav_color" value="bardata2"> 2014-2015
+<input type="radio" id="javascript" name="fav_color" value="bardata3"> 2015-2016
+
+<svg id = "gup"></svg>
+<script>
+      const w = 450;  // change this value and see what happens
+      const h = 300;
+      const margin = {top: 25, right: 0, bottom: 25, left: 50};
+      const innerWidth = w - margin.left - margin.right;
+      const innerHeight = h - margin.top - margin.bottom;
+    
+    d3.select("svg#gup")
+    .attr("width", w)
+    .attr("height", h);
+    
+    d3.select("svg#gup")
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", w)
+    .attr("height", h)
+    .attr("fill", "aliceblue");
+
+    
+    const bardata1 = [{key: "major_crime", value: 649},
+                      {key: "other_crime", value: 2461},
+                      {key: "non-criminal_crime", value: 3759},
+                      {key: "property_crime", value: 1585},
+                      {key: "violent_crime", value: 1067}];
+      
+    const bardata2 = [{key: "major_crime", value: 606},
+                      {key: "other_crime", value: 2264},
+                      {key: "non-criminal_crime", value: 3941},
+                      {key: "property_crime", value: 1554},
+                      {key: "violent_crime", value: 1048}];
+    
+    const bardata3 = [{key: "major_crime", value: 521},
+                      {key: "other_crime", value: 2196},
+                      {key: "non-criminal_crime", value: 4053},
+                      {key: "property_crime", value: 1332},
+                      {key: "violent_crime", value: 1058}];
+
+    const metadata = {"bardata1": bardata1,
+                      "bardata2": bardata2,
+                      "bardata3": bardata3}
+
+      const xScale = d3.scaleBand()
+      .domain(bardata1.map(d => d.key))
+      .range([0, innerWidth])
+      .paddingInner(.1);
+        
+    const yScale = d3.scaleLinear()
+      .domain([0, 4200])
+      .range([innerHeight, 0])
+      
+    const xAxis = d3.axisBottom()
+      .scale(xScale);
+      
+    const yAxis = d3.axisLeft()
+      .scale(yScale);
+      
+    const bars = 
+        d3.select("svg#gup")
+        .append("g")
+        .attr("id", "plot")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+      .selectAll("rect")
+      .data(bardata1);
+    
+    const svg = 
+      d3.select("svg#gup");
+
+       bars.enter().append("rect")
+      .attr("x", d => xScale(d.key))
+      .attr("y", d => yScale(d.value))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => innerHeight - yScale(d.value))
+      .attr("fill", "lightgreen");
+      
+      svg.append("g")
+      .attr("class", "xAxis")
+      .attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+      .call(xAxis);
+
+    svg.append("g")
+      .attr("class", "yAxis")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+      .call(yAxis);
+      
+    
+    d3.selectAll("input")
+    .on("click", function(event) {
+      const favcolor = event.currentTarget.value
+      
+      d3.select("svg#gup").select("g#plot")
+      .selectAll("rect")
+      .data(metadata[favcolor])
+      .attr("x", d => xScale(d.key))
+      .attr("width", xScale.bandwidth())
+      .transition()
+      .duration(3000)
+      .attr("height", d => innerHeight - yScale(d.value))
+      .attr("y", d => yScale(d.value));
+      });
+          
+</script>
