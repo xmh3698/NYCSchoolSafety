@@ -38,30 +38,29 @@ scatterplot(crime ~ total_register, data=register_crime, main = title_1, col = "
 
 ```
 
-It is natural to ask if the total number of students positively correlates to the total number of school crimes for each geographical district. To answer this question, we plot the scatterplot of the total number of students and the total number of school crimes for each district in each school year. To find the total number of students, we take the sum of schools from the same district and school year. The total number of crimes in each school is the sum of five different types of crimes provided in the data. The total number of crimes is the sum of the total number of crimes in each school from the same district and school year.
-The correlation between the two variables is calculated and displayed in the graph. Contradicting our intuition, the correlation is very weak. The plot shows that the larger number of registered students in the district is not strongly correlated with the total number of school crimes in each district. The scatterplot explains the weak correlation. When the total number of registered students is high, some districts have a high number of school crimes, while others don’t.
+It is natural to ask if larger number of registered students lead to a larger number of school crime. To answer this question, we plot the scatterplot of the total number of students and the total number of school crimes for each district in each school year. To find the total number of students, we take the sum of schools from the same district and same school year. The total number of crimes in each school is the sum of five different types of crimes provided in the data. The total number of crimes in each district is the sum of the total number of crimes in each school from the same district and school year.
+The correlation between the two variables is calculated and displayed in the graph. Contradicting our intuition, the correlation is weak. The plot indicates that the number of registered students in the district is not strongly correlated with the total number of school crimes in each district. The scatter plot explains the weak correlation. When the total number of registered students is high, some districts have a high number of school crimes, while others don’t.
 
 ## Parallel coordinate plot for school districts
 
-```{r}
+```{r, fig.height=6, fig.width=10}
 district_crime <- school_clean %>%
   select(Borough, Geographical.District.Code, Major.N, Oth.N, NoCrim.N, Prop.N, Vio.N) %>%
   group_by(Borough, Geographical.District.Code) %>%
   summarise(total_major = sum(Major.N), total_oth = sum(Oth.N), total_nocrim = sum(NoCrim.N), total_prop = sum(Prop.N), total_vio = sum(Vio.N))
   
 #Let's first see how school_crime looks like by district
-ggparcoord(district_crime, columns=2:7, groupColumn=1, alpha=1, scale='uniminmax',
+ggparcoord(district_crime, columns=2:7, groupColumn=1, scale='uniminmax',
            title = "Modified parallel coordinate plot for NYC school district crime") +
   theme(axis.text.x  = element_text(angle=45, vjust=1, hjust=1, size=8), axis.text.y = element_text(size=5))
 ```
 
-A parallel coordinate plot is useful for finding outliers and clusters. In this case, we are interested in finding which school district has a large number of overall crimes. Five different types of crime are calculated for each district by taking the sum by schools over three years.
-We found two outliers, district 2 from Manhattan and district 31 from Staten Island. Then, we see several districts from the Bronx have school crime well above other districts. We also observed a cluster of districts from the Queen has low overall crimes. Based on this plot, we can assume the Bronx has the highest overall school crimes, while the Queen has the lowest overall crime.
+A parallel coordinate plot is useful for finding outliers and clusters. In this case, we are interested in finding which school district has a large number of crimes. Five different types of crime are calculated for each district by taking the sum of schools from the same district over three years.
+We found two outliers in the top part of the graph, district 2 from Manhattan and district 31 from Staten Island. Then, we see several districts from the Bronx have school crime well above other districts. We also observed a cluster of districts from the Queen has low overall crimes. Based on this plot, we can assume the Bronx has the highest overall school crimes, while the Queen has the lowest overall crime. Staten Island has very high number of school crime even though it contains only one school district. Schools in Manhattan are relativly safe expect those from district 2. To understand the two outliers having very low crime count, we look into the dataset for a answer. A few number of schools are labeled in different Borough with other schools from the same district, which create those outliers. We conclude those two outliers in the bottom of the graph are not valid.
 
 ## Treemap for total registered students and the number of school in each districts
-Which geographical district has the largerest number of students, which geographical district has the smallest number of students? What is the distribution of registered stduent in NYC? To answer those questions, we can plot a treemap that includes the total population of each geographical district.
 
-```{r}
+```{r , fig.height=6, fig.width=8}
 #preprocessing
 district_population <- school_clean %>%
   filter(Register != "#N/A" & Register != "") %>%
@@ -83,7 +82,7 @@ treemap(district_population,
 ```
 
 What is the distribution of schools and students over all districts and boroughs? We used a treemap to ask this question. Each row in our dataset is a building, one building can have multiple schools. This is why there is a column for the number of schools for each row. To find the number of students and number of schools for each district, we simply take the sum by groups.
-We can see that Brooklyn and Queens have the largest number of students, while Bronx and Manhattan have a similar number of students. The Number of schools is more evenly distributed in the Bronx than in Manhattan. The number of schools is more evenly distributed in Queens than in Brooklyn.
+We can see that Brooklyn and Queens have the largest number of students, while Bronx has more students than Manhattan. Staten Island has one school district. In Manhattan, most registered students and schools are concentrated in district 2. In Bronx, the number of registers is positive correlated to the number of schools, based on the graph. In Brooklyn, some districts with small number of registers have a large number of schools. In the contrary, some districts in Brooklyn with large number of registers have small number of schools. The Number of schools is more evenly distributed in the Bronx than in Manhattan. The number of schools is more evenly distributed in Queens than in Brooklyn.
 
 ## Time Series of total crime in New York City
 ```{r}
@@ -103,7 +102,7 @@ ggplot(data = total_crime) +
 ```
 
 What is the trend of each type of crime over time? To answer this question, we plot a time series plot for the total number of each type of school crime in NYC over years. The process is straightforward. We take the sum of each type of school crime group by year.
-We observe a slight increase in the total number of non-criminal crimes over time. We observe a slight decrease in the total number of property crimes, major crimes, and other crimes over time. We observe no change in the total number of violent crimes. However, those changes are very small, we might just say the total number of each type of school crime in NYC is about the same each year.
+We observe a slight increase in the total number of non-criminal crimes over time. We observe a slight decrease in the total number of property crimes, major crimes, and other crimes over time. We observe no change in the total number of violent crimes. In all school year, the number of non-criminal crimes is the highest among the five. The number of major crime in the lowest among the five. Based on personal opinion, some may argue the overall school safety in NYC improved over years, while others consider the overall school safety remain the same.
 
 ## Time series plot regarding number of crimes in each category
 ```{r}
@@ -192,8 +191,8 @@ pairs.panels(school_crime[,3:7],
              )
 ```
 
-At this point, it is good to ask about the level of a school district, are each type of school crime correlated. To answer this question, we can use matrix scatter plots. We summaries the sum of each type of crime grouping by districts and school year.
-We observe a strong correlation between any pair of different types of school crime. All the correlations are positive, thus a district with a high number of one type of crime is also likely to have a high number of other types of school crimes.
+At this point, it is good to know if each type of school crime correlated statistically. To answer this question, we can use matrix scatter plots. We summaries the sum of each type of crime grouping by districts and school year. The scatter plot matrices use pearson method to calculate the correlation between each pair of crimes. A histogram of each crime is also provide to understand the distribution of school crimes.
+We observe a strong correlation between any pair of different types of school crime. All the correlations are positive, thus a district with a high number of one type of crime is also likely to have a high number of other types of school crimes. For each type of crimes, the distribution is right skewed.
 
 ## Principle components analysis (PCA)
 ```{r}
@@ -236,6 +235,6 @@ scatterplot(crime ~ total_school, data=register_crime, main = title_2, col = "bl
 ```
 
 In the PCA section, we observed that the number of schools in a district is strongly correlated to the number of total crimes. To verify the assumption, we plot a scatter plot of the total number of crimes vs. the total number of schools in each district. We calculated the total number of crimes in the same way as the first plot. The total number of schools is calculated by summing up the “X..Schools” column by groups.
-We observed a strong positive correlation. Hence indeed, if a district has a large number of schools, it is also likely to have a large number of crimes.
+We observed a strong positive correlation. Hence indeed, if a district has a large number of schools, it is also likely to have a large number of crimes. One possible explanation is that most crimes targets are buildings rather than students, thus more schools means more targets.
 
 
