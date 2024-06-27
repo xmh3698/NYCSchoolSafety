@@ -1,5 +1,5 @@
 --- 
-title: "NYC School Safey"
+title: "NYC School Saftey"
 author: "Tseng-Han Yu, Xiangming Huang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
